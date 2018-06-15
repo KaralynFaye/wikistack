@@ -25,5 +25,5 @@ const sync = async () => {
 sync();
 
 app.get('/', (req, res, next) =>{
-  res.send(layout());
+  res.redirect('/wiki');
 })
