@@ -8,14 +8,14 @@ const wikiRouter = require('./routes/wiki');
 const userRouter = require('./routes/user');
 
 app.use('/wiki', wikiRouter);
-app.use('/user', userRouter);
+app.use('/users', userRouter);
 
 app.use(morgan('dev'));
 app.use(express.static(__dirname + '/public'));
 const PORT = 1337;
 
 const sync = async () => {
-  await index.db.sync({force: true});
+  await index.db.sync();
 
   app.listen(PORT, () => {
     console.log(`listening on ${PORT}`)

@@ -12,9 +12,12 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:id', async (req, res, next) => {
-    const user = await User.findOne({
-        where: {id: req.param.id}
-    })
-    const pages = await Pages.findAll({where: {author: req.param.id}})
-    res.send(userPages(user, pages));
+    try {
+      const user = await User.findOne({
+      where: {id: req.params.id}
+      })
+      const pages = await Page.findAll({where: {authorId: req.params.id}})
+      res.send(userPages(user, pages));
+    }
+    catch (err) {console.log('user issue')}
 })

@@ -31,7 +31,7 @@ router.post('/', async (req, res, next) => {
     try {
         const author = await User.findOrCreate({where: {name: req.body.author}});
         page.setAuthor(author[0].id);
-    } catch (err) { console.log('broken')};
+    } catch (err) { console.log('broken')}
 
     Page.beforeValidate((pg)=> {
         pg.slug = slugger(pg.title);
@@ -55,11 +55,16 @@ router.get('/add', (req, res, next) => {
 });
 
 router.get('/:slug', async (req,res,next) => {
+
     try{
         const page = await Page.findOne({
             where:{slug: req.params.slug}
         })
-        res.send(wikiPage(page));
+        if (!page){
+            res.send(404, 'Page not Found')
+        }
+        const author = await page.getAuthor();
+        res.send(wikiPage(page, author));
     }
     catch(err){next(err)}
 })
