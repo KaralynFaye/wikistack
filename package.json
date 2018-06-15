@@ -1,0 +1,29 @@
+{
+  "name": "wikistack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "html-template-tag": "^2.0.0",
+    "morgan": "^1.9.0",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.37.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon ./app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KaralynFaye/wikistack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KaralynFaye/wikistack/issues"
+  },
+  "homepage": "https://github.com/KaralynFaye/wikistack#readme"
+}
