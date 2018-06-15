@@ -6,6 +6,7 @@ module.exports = router;
 const bodyParser = require ('body-parser')
 const wikiPage = require('../views/wikiPage');
 const main = require ('../views/main')
+const { User } = require('../models');
 
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
@@ -26,6 +27,11 @@ router.post('/', async (req, res, next) => {
         title: req.body.title,
         content: req.body.content
     });
+
+    try {
+        const author = await User.findOrCreate({where: {name: req.body.author}});
+        page.setAuthor(author[0].id);
+    } catch (err) { console.log('broken')};
 
     Page.beforeValidate((pg)=> {
         pg.slug = slugger(pg.title);
@@ -52,7 +58,6 @@ router.get('/:slug', async (req,res,next) => {
     try{
         const page = await Page.findOne({
             where:{slug: req.params.slug}
-
         })
         res.send(wikiPage(page));
     }
